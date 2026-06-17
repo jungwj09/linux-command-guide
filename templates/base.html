@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linux Command Guide</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Linux Command Guide</h1>
+        <nav>
+            <a href="{{ url_for('index') }}">홈</a>
+            <a href="{{ url_for('command_list') }}">명령어</a>
+
+            {% if session.get('user') %}
+                <a href="{{ url_for('favorites') }}">즐겨찾기</a>
+                <a href="{{ url_for('profile') }}">프로필</a>
+                <a href="{{ url_for('logout') }}">로그아웃</a>
+            {% else %}
+                <a href="{{ url_for('login') }}">로그인</a>
+            {% endif %}
+        </nav>
+    </header>
+    <main>
+        {% if session.get('user') %}
+            <p class="user-info">
+                로그인 사용자: {{ session['user'] }}
+            </p>
+        {% endif %}
+
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>
