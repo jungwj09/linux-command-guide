@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>My Favorites</h2>
+
+{% if commands %}
+
+<ul class="command-list">
+
+    {% for command in commands %}
+
+    <li>
+        <h3>{{ command.command }}</h3>
+        <p>
+            {{ command.description }}
+        </p>
+        <a href="{{ url_for('command_detail', name=command.command) }}">
+            상세 보기
+        </a>
+    </li>
+
+    {% endfor %}
+
+</ul>
+
+{% else %}
+
+<p>
+    아직 등록된 즐겨찾기가 없습니다.
+</p>
+
+{% endif %}
+
+{% endblock %}

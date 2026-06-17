@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Linux Commands</h2>
+
+<form method="GET">
+
+    <input
+        type="text"
+        name="keyword"
+        placeholder="명령어 검색"
+        value="{{ keyword }}"
+    >
+
+    <button type="submit">
+        검색
+    </button>
+
+</form>
+
+{% if commands %}
+
+<ul class="command-list">
+
+    {% for command in commands %}
+
+    <li>
+        <h3>{{ command.command }}</h3>
+        <p>{{ command.description }}</p>
+        <p>
+            <a href="{{ url_for('command_detail', name=command.command) }}">
+                상세 보기
+            </a>
+        </p>
+    </li>
+
+    {% endfor %}
+
+</ul>
+
+{% else %}
+
+<p>검색 결과가 없습니다.</p>
+
+{% endif %}
+
+{% endblock %}

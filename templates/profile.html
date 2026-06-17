@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Profile</h2>
+
+<p>
+    사용자 이름:
+    <strong>{{ session['user'] }}</strong>
+</p>
+
+<p>
+    즐겨찾기 개수:
+    <strong>{{ favorite_count }}</strong>
+</p>
+
+{% endblock %}
