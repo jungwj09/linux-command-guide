@@ -68,10 +68,14 @@ def login():
 
         if username in users and users[username] == password:
 
-            session["user"] = username
-
-            if "favorites" not in session:
+            # 마지막으로 로그인했던 사용자(last_user)와 지금 로그인하는 사용자(username)를 비교
+            # 같은 계정으로 재로그인하면 즐겨찾기를 그대로 유지
+            # 다른 계정으로 로그인하면 즐겨찾기를 새로 초기화
+            if session.get("last_user") != username:
                 session["favorites"] = []
+
+            session["user"] = username
+            session["last_user"] = username
 
             return redirect(url_for("index"))
 
@@ -148,6 +152,12 @@ def add_favorite(name):
 
     if "user" not in session:
         return redirect(url_for("login"))
+
+    # name이 실제로 존재하는 명령어인지 먼저 확인
+    valid_names = [command["command"] for command in commands]
+
+    if name not in valid_names:
+        return redirect(url_for("command_list"))
 
     favorites = session.get("favorites", [])
 
